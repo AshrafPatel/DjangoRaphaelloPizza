@@ -26,7 +26,7 @@ RUN pip install -r requirements.txt
 # RUN python manage.py makemigrations
 
 # Migrate the database
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
