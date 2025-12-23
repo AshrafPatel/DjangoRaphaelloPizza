@@ -84,11 +84,20 @@ WSGI_APPLICATION = 'raphaellopizzas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# Local SQLite configuration
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
+#         conn_max_age = 600,
+#         ssl_require = not DEBUG
+#     )
+# }
+
 DATABASES = {
     "default": dj_database_url.config(
-        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
-        conn_max_age = 600,
-        ssl_require = not DEBUG
+        default=os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        conn_max_age=600,
+        ssl_require=True,  # Neon requires SSL Local is 'not Debug'
     )
 }
 
