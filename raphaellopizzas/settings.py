@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from pathlib import Path 
+import dj_database_url
 from dotenv import load_dotenv  
 from urllib.parse import urlparse, parse_qsl  
 
@@ -86,34 +87,17 @@ WSGI_APPLICATION = 'raphaellopizzas.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # Local SQLite configuration for development
-if os.environ.get("DJANGO_ENV") == "development":
-    DATABASES = {
+DATABASES = {
     "default": dj_database_url.config(
-        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
+        default="sqlite:///db.sqlite3",
         conn_max_age = 600,
         ssl_require = not DEBUG
     )
 }
-
-# Production Postgres configuration
-if os.environ.get("DJANGO_ENV") == "production":
-    load_dotenv()
-    tmpPostgres = urlparse(os.environ.get("DATABASE_URL", "test/test/test"))
-    if isinstance(DATABASE_URL, bytes):
-        DATABASE_URL = DATABASE_URL.decode()
-    tmpPostgres = urlparse(DATABASE_URL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': tmpPostgres.path.replace('/', ''),
-            'USER': tmpPostgres.username,
-            'PASSWORD': tmpPostgres.password,
-            'HOST': tmpPostgres.hostname,
-            'PORT': 5432,
-            'OPTIONS': {
-                'options': '-c timezone=UTC'
-            }
-        }
+# PostgreSQL configuration for production
+if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
+    DATABASES["default"]["OPTIONS"] = {
+        "options": "-c timezone=UTC"
     }
 
 
