@@ -7,6 +7,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
+def promote_first_user(user):
+    if User.objects.count() == 1:
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+
 def register_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('index'))
@@ -16,6 +22,8 @@ def register_view(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = User.objects.create_user(username=username, password=password)
+            promote_first_user(user)
+            login(request, user)
             return HttpResponseRedirect(reverse('index'))
         else:
             return render(request, 'registration/register.html', {'form': form})
