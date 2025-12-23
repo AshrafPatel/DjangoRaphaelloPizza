@@ -22,8 +22,8 @@ COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Make migrations
-RUN python manage.py makemigrations
+# Make migrations this is a local command do not uncomment unless you want to create new migrations
+# RUN python manage.py makemigrations
 
 # Migrate the database
 RUN python manage.py migrate
