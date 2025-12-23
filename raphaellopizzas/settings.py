@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "yellow")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "localhost", "0.0.0.0"]
 
 
 # Application definition
@@ -93,8 +93,6 @@ DATABASES = {
         conn_max_age = 600,
     )
 }
-TIME_ZONE = "UTC"
-USE_TZ = True
 # PostgreSQL configuration for production
 if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
     DATABASES["default"]["OPTIONS"] = {
