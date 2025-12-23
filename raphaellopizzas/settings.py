@@ -95,10 +95,13 @@ WSGI_APPLICATION = 'raphaellopizzas.wsgi.application'
 
 DATABASES = {
     "default": dj_database_url.config(
-        default = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
+        default = os.environ["DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"],
         conn_max_age = 600,
-        ssl_require = not DEBUG,  # Neon requires SSL Local is 'not Debug'
-    )
+        ssl_require = not DEBUG,  # Neon requires SSL Local is 'not Debug',
+    ),
+    'OPTIONS': {
+        'options': '-c timezone=UTC',
+    },
 }
 
 
