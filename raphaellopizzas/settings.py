@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import dj_database_url
 from pathlib import Path 
+from dotenv import load_dotenv  
+from urllib.parse import urlparse, parse_qsl  
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,16 +93,24 @@ WSGI_APPLICATION = 'raphaellopizzas.wsgi.application'
 #         ssl_require = not DEBUG
 #     )
 # }
+# Add these at the top of your settings.py
+
+
+load_dotenv()
+
+# Replace the DATABASES section of your settings.py with this
+tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
 DATABASES = {
-    "default": dj_database_url.config(
-        default = os.environ.get("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
-        conn_max_age = 600,
-        ssl_require = not DEBUG,  # Neon requires SSL Local is 'not Debug',
-    ),
-    'OPTIONS': {
-        'options': '-c timezone=UTC',
-    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': tmpPostgres.path.replace('/', ''),
+        'USER': tmpPostgres.username,
+        'PASSWORD': tmpPostgres.password,
+        'HOST': tmpPostgres.hostname,
+        'PORT': 5432,
+        'OPTIONS': dict(parse_qsl(tmpPostgres.query)),
+    }
 }
 
 
