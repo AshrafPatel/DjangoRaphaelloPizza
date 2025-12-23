@@ -91,13 +91,14 @@ DATABASES = {
     "default": dj_database_url.config(
         default="sqlite:///db.sqlite3",
         conn_max_age = 600,
-        ssl_require = not DEBUG
     )
 }
+TIME_ZONE = "UTC"
+USE_TZ = True
 # PostgreSQL configuration for production
 if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
     DATABASES["default"]["OPTIONS"] = {
-        "options": "-c timezone=UTC"
+        "options": "-c timezone=UTC",
     }
 
 
