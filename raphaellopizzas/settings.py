@@ -96,7 +96,8 @@ WSGI_APPLICATION = 'raphaellopizzas.wsgi.application'
 # Add these at the top of your settings.py
 
 
-load_dotenv()
+if os.environ.get("DJANGO_ENV") != "production":
+    load_dotenv()
 
 # Replace the DATABASES section of your settings.py with this
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
