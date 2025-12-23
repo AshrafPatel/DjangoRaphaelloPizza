@@ -85,36 +85,36 @@ WSGI_APPLICATION = 'raphaellopizzas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# Local SQLite configuration
-# DATABASES = {
-#     "default": dj_database_url.config(
-#         default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
-#         conn_max_age = 600,
-#         ssl_require = not DEBUG
-#     )
-# }
-# Add these at the top of your settings.py
+# Local SQLite configuration for development
+if os.environ.get("DJANGO_ENV") == "development":
+    DATABASES = {
+    "default": dj_database_url.config(
+        default="sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3"),
+        conn_max_age = 600,
+        ssl_require = not DEBUG
+    )
+}
 
-
-if os.environ.get("DJANGO_ENV") != "production":
+# Production Postgres configuration
+if os.environ.get("DJANGO_ENV") == "production":
     load_dotenv()
-
-# Replace the DATABASES section of your settings.py with this
-tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': tmpPostgres.path.replace('/', ''),
-        'USER': tmpPostgres.username,
-        'PASSWORD': tmpPostgres.password,
-        'HOST': tmpPostgres.hostname,
-        'PORT': 5432,
-        'OPTIONS': {
-            'options': '-c timezone=UTC'
+    tmpPostgres = urlparse(os.environ.get("DATABASE_URL", "test/test/test"))
+    if isinstance(DATABASE_URL, bytes):
+        DATABASE_URL = DATABASE_URL.decode()
+    tmpPostgres = urlparse(DATABASE_URL)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': tmpPostgres.path.replace('/', ''),
+            'USER': tmpPostgres.username,
+            'PASSWORD': tmpPostgres.password,
+            'HOST': tmpPostgres.hostname,
+            'PORT': 5432,
+            'OPTIONS': {
+                'options': '-c timezone=UTC'
+            }
         }
     }
-}
 
 
 

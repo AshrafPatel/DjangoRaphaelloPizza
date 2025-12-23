@@ -9,3 +9,4 @@ pytz==2019.3
 bcrypt==3.1.7
 psycopg2-binary
 python-dotenv==0.19.2
+dj_database_url==0.5.0
