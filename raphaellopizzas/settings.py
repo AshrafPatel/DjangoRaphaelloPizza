@@ -133,13 +133,9 @@ PASSWORD_HASHERS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
 USE_L10N = True
-
-USE_TZ = True
 
 
 # To go to home after login instead of getting redirected to accounts/profile on login which is default
