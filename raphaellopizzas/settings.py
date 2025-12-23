@@ -99,7 +99,8 @@ USE_TZ = True
 if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
     DATABASES["default"]["OPTIONS"] = {
         "options": "-c timezone=UTC",
-    }
+    },
+    DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 
 
