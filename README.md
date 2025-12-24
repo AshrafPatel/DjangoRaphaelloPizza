@@ -31,7 +31,18 @@ The project follows Django’s **MTV (Model–Template–View)** architecture an
 ---
 ## 🐳 Docker Support   
 This project has been **fully Dockerized** to ensure consistent setup and easy deployment.   
-    
+
+## 📌 What This Project Demonstrates
+Full-stack development skills   
+Real-world deployment experience   
+Clean architecture principles   
+Understanding of production concerns (encryption, env separation)   
+Reading Documentation and understanding how to apply API to projecct (Stripe)   
+
+## 👤 Author
+Ashraf Patel   
+Software Engineer  
+
 ### Run locally with Docker
 ```bash
 docker build -t raphaellopizzas .
