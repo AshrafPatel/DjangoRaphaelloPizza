@@ -10,8 +10,7 @@ Raphaello Pizzas is an online pizza ordering platform that allows users to:
 - Place and manage pizza orders  
 - View personal order history  
 - Use role-based access (customers / admin)  
-    
-The project follows Django’s **MTV (Model–Template–View)** architecture and uses SQLite for local persistence.   
+The project follows Django’s MTV (Model–Template–View) architecture and uses SQLite for local persistence.   
 ---
 ## 🛠 Tech Stack   
 **Backend**
