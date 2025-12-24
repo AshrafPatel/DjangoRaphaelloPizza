@@ -1,7 +1,7 @@
 # 🍕 Raphaello Pizzas – Django Web Application   
 A full-stack Django web application built as part of **CS50 Web Programming**, modernized by **Dockerizing and deploying** the project to demonstrate real-world development and deployment skills.  
-https://djangoraphaellopizza.onrender.com   
-http://localhost:8000   
+👉 https://djangoraphaellopizza.onrender.com (online)   
+👉 http://localhost:8000 (local)
 ---
 ## 🚀 Project Overview   
 Raphaello Pizzas is an online pizza ordering platform that allows users to:  
